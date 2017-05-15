@@ -1,0 +1,115 @@
+// Asciidoctor Source
+// Discord Webhooks README
+//
+// Original author:
+// - pyzlnar
+//
+// Notes:
+// Compile with: $ asciidoctor README.adoc
+
+= Discord Webhooks
+[Crontabbed webhooks for a Discord server]
+:toc:
+:showtitle:
+:source-highlighter: coderay
+
+== Introduction
+
+This is basically a small set of rake tasks that are run through crontab in order to have a bot post
+a discord message.
+
+== Installation
+
+=== Requirements
+
+* ruby 2.0+ +
+  Although `2.4.0` is specified in the Gemfile you can use an older verison.
+
+=== Source code
+
+Download the source code. Im copying it over `/var/www/discord` here, but you can evidently place it
+anywhere you want. Just remember the full path for when you setup the crontab.
+
+[source,bash]
+----
+$ git clone https://github.com/pyzlnar/discord-webhook.git /var/www/discord
+----
+
+*Optional:*
+
+Create a symlink in your home folder for easy access.
+
+[source,bash]
+----
+$ ln -s /var/www/discord ~/discord
+----
+
+=== Install dependencies
+
+Install the dependencies via bundler... and install bundler if you haven't already.
+
+[source,bash]
+----
+$ cd ~/discord
+$ gem install bundler
+$ bundle install
+----
+
+=== Setup secrets.yml
+
+Copy over the secrets example and fill it up with the correct info.
+
+[source,bash]
+----
+$ cp secrets.example.yml secrets.yml
+----
+
+=== Test Run
+
+You can now do a test run to ensure that your setup is correct.
+
+Doing this, should post a message to your discord webhook.
+
+[source,bash]
+----
+$ rake remind:timesheets
+----
+
+=== Setup Crontab
+
+Now you only need to setup the crontab.
+
+The easiest way to do this, is to open the crontab file provided here, copy the crontabs and paste
+them into the crontabs file. If you changed the installation directory for the source code, ensure
+the `$DISCORD_PATH` variable is set correctly.
+
+[source,bash]
+----
+# Open the crontab file with
+$ crontab -e
+
+# Paste the following there
+DISCORD_PATH=/var/www/discord # Ensure this absolute path points to the source code
+30 09 * * 1-5  /bin/bash -l -c 'cd -- $DISCORD_PATH && bundle exec rake remind:standup:wallet'
+45 09 * * 1-5  /bin/bash -l -c 'cd -- $DISCORD_PATH && bundle exec rake remind:standup:hounds'
+
+05 10 * * 5    /bin/bash -l -c 'cd -- $DISCORD_PATH && bundle exec rake remind:timesheets'
+----
+
+=== Pat Yourself
+
+You're done!
+
+A very long installation manual for something relatively simple huh? Feel free to add more
+tasks and/or cronjobs that call them. You already have the blueprint.
+
+== External Links
+
+* https://support.discordapp.com/hc/en-us/articles/228383668-Intro-to-Webhooks[Intro to Webhooks]
+* https://discordapp.com/developers/docs/resources/webhook[Webhook Resource]
+* https://discordapp.com/developers/docs/resources/webhook#execute-webhook[Execute Webhook]
+
+== License
+
+This script is released under the
+https://opensource.org/licenses/MIT[MIT License].

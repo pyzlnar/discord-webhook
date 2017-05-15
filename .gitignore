@@ -51,3 +51,6 @@ build-iPhoneSimulator/
 
 # Dont add secrets to repo!
 secrets.yml
+
+# Ignore compiled README
+README.html
