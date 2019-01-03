@@ -29,18 +29,26 @@ namespace :remind do
       MESSAGE
     end
 
-    desc 'Hound standup'
-    task :hounds do
+    desc 'Travel wizards standup'
+    task :wizards do
       post <<~MESSAGE
-        **Standup!** <@&313742915216343041>
-        #{SECRETS['hounds_standup']}
+        **Standup!** <@&530425480625651723>
+        #{SECRETS['wizards_standup']}
+      MESSAGE
+    end
+
+    desc 'Travel core standup'
+    task :core do
+      post <<~MESSAGE
+        **Standup!** <@&530425497021317120>
+        #{SECRETS['core_standup']}
       MESSAGE
     end
   end
 
   desc 'Demo'
   task :demo do
-    post "<@&313742915216343041> Demo!\n#{SECRETS['hounds_standup']}"
+    post "<@&313742915216343041> Demo!\n#{SECRETS['wizards_standup']}"
   end
 
   desc 'Timesheets'

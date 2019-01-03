@@ -35,7 +35,8 @@
 
 DISCORD_PATH=/var/www/discord
 28 09 * * 1-5  /bin/bash -l -c 'cd -- $DISCORD_PATH && bundle exec rake remind:standup:wallet'
-45 09 * * 1-5  /bin/bash -l -c 'cd -- $DISCORD_PATH && bundle exec rake remind:standup:hounds'
+45 09 * * 1-5  /bin/bash -l -c 'cd -- $DISCORD_PATH && bundle exec rake remind:standup:wizards'
+00 10 * * 1-5  /bin/bash -l -c 'cd -- $DISCORD_PATH && bundle exec rake remind:standup:core'
 
 05 10 * * 5    /bin/bash -l -c 'cd -- $DISCORD_PATH && bundle exec rake remind:timesheets'
 
