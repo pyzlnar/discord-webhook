@@ -4,6 +4,10 @@ require 'yaml'
 
 SECRETS = YAML.load_file('secrets.yml').freeze
 
+# NOTE
+# To get the desire roleID type \@rolename on the chat.
+# Copying the id from the role submenu does not work.
+
 task :bday do
   post "今日は私の誕生日です！(//ω//)\nhttps://pbs.twimg.com/media/DVApdqUUQAE3k-P.jpg"
 end
@@ -32,7 +36,7 @@ namespace :remind do
     desc 'Travel wizards standup'
     task :wizards do
       post <<~MESSAGE
-        **Standup!** <@&530425480625651723>
+        **Standup!** <@&530424799319687179>
         #{SECRETS['wizards_standup']}
       MESSAGE
     end
@@ -40,7 +44,7 @@ namespace :remind do
     desc 'Travel core standup'
     task :core do
       post <<~MESSAGE
-        **Standup!** <@&530425497021317120>
+        **Standup!** <@&530425120502710292>
         #{SECRETS['core_standup']}
       MESSAGE
     end
